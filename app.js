@@ -65,8 +65,9 @@ app.post('/api/admin/login', async (req, res) => {
                 'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
             }
         })
-        res.status(200).json({ token, volunteerToken: volunteerResponse.data.token });
+        res.status(200).json({ token, volunteerToken: volunteerResponse.data});
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Internal server error' });
     }
 })

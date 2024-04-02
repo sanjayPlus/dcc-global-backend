@@ -92,7 +92,7 @@ app.get('/api/admin/get-backend-url/:district', async (req, res) => {
                     'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
                 }
             })
-            return res.status(200).json({ token: tokenRes.data.token, district: "Thrissur" ,url:`https://dcctcr-backend.plusitpark.com`});
+            return res.status(200).json({ token: tokenRes.data, district: "Thrissur" ,url:`https://dcctcr-backend.plusitpark.com`});
         }
     } catch (error) {
         console.log(error)

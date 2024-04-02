@@ -71,14 +71,14 @@ app.post('/api/admin/login', async (req, res) => {
     }
 })
 
-app.get('/api/admin/get-backend-url',async (req, res) => {
+app.get('/api/admin/get-backend-url/:district', async (req, res) => {
     try {
 
-            const {district}= req.params;
-            if(!district){
-                return res.status(401).json({ message: 'Invalid credentials' });
-            }
-     const token = req.headers['x-access-token'];
+        const { district } = req.params;
+        if (!district) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+        const token = req.headers['x-access-token'];
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
@@ -87,13 +87,13 @@ app.get('/api/admin/get-backend-url',async (req, res) => {
         if (!admin) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
-        if(district = "Thrissur"){
-          const tokenRes = await  axios.get('https://dcctcr-backend.plusitpark.com/api/admin/login-from-dcc-admin',{
+        if (district = "Thrissur") {
+            const tokenRes = await axios.get('https://dcctcr-backend.plusitpark.com/api/admin/login-from-dcc-admin', {
                 headers: {
                     'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
                 }
             })
-         return  res.status(200).json({ token: tokenRes.data.token, district: "Thrissur" });
+            return res.status(200).json({ token: tokenRes.data.token, district: "Thrissur" });
         }
 
     } catch (error) {

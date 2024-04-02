@@ -89,12 +89,12 @@ app.get('/api/admin/get-backend-url/:district', async (req, res) => {
             return res.status(401).json({ message: 'Unauthorized' });
         }
         if (district = "Thrissur") {
-            const tokenRes = await axios.get('https://dcctcr-backend.plusitpark.com/api/admin/login-from-dcc-admin', {
+            const tokenRes = await axios.get('https://dcctcr-backend.plusitpark.com/api/admin/login-from-dcc', {
                 headers: {
                     'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
                 }
             })
-            return res.status(200).json({ token: tokenRes.data.token, district: "Thrissur" });
+            return res.status(200).json({ token: tokenRes.data.token, district: "Thrissur" ,url:`https://dcctcr-backend.plusitpark.com`});
         }
 
     } catch (error) {

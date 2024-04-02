@@ -71,10 +71,8 @@ app.post('/api/admin/login', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 })
-
 app.get('/api/admin/get-backend-url/:district', async (req, res) => {
     try {
-
         const { district } = req.params;
         if (!district) {
             return res.status(401).json({ message: 'Invalid credentials' });
@@ -88,7 +86,7 @@ app.get('/api/admin/get-backend-url/:district', async (req, res) => {
         if (!admin) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
-        if (district = "Thrissur") {
+        if (district === "Thrissur") { // corrected comparison
             const tokenRes = await axios.get('https://dcctcr-backend.plusitpark.com/api/admin/login-from-dcc', {
                 headers: {
                     'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
@@ -96,12 +94,12 @@ app.get('/api/admin/get-backend-url/:district', async (req, res) => {
             })
             return res.status(200).json({ token: tokenRes.data.token, district: "Thrissur" ,url:`https://dcctcr-backend.plusitpark.com`});
         }
-
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: 'Internal server error' });
     }
 })
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

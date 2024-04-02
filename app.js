@@ -60,7 +60,7 @@ app.post('/api/admin/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, { expiresIn: '365d' });
-        const volunteerResponse = await axios.get(`${VOLUNTEEER_URL}/api/admin/login-from-dcc-admin`, {
+        const volunteerResponse = await axios.get(`${process.env.VOLUNTEEER_URL}/api/admin/login-from-dcc-admin`, {
             headers: {
                 'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
             }

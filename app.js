@@ -98,6 +98,7 @@ app.get('/api/admin/get-backend-url/:district', async (req, res) => {
         }
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Internal server error' });
     }
 })

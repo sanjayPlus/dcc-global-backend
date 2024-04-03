@@ -130,6 +130,7 @@ app.get('/api/sound-page', async (req, res) => {
         let data = response.data
         res.render('sound', { data })
     } catch (error) {
+            console.log(error)
                 res.status(500).json({ message: 'Internal server error' });
     }
 })

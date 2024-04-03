@@ -51,12 +51,12 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Videos</h1>
+    <h1 style="text-align: center;">Sounds</h1>
     <div id="videos">
         <% data.forEach((audio) => { %>
             <div class="video-card">
                 <h2 class="video-title"><%= audio.title %></h2>
-                <audio controls src="<%= audio.audio %>"></audio>
+                <audio controls src="<%= audio.sound %>"></audio>
              
             </div>
         <% }) %>

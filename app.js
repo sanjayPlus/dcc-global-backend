@@ -110,7 +110,7 @@ app.get('/api/admin/get-backend-url/:district', async (req, res) => {
 
 app.get('/api/admin/history', (req, res) => {
     let para = `The Indian National Congress (INC Congress) is one of the two major political parties in India. It is one of the oldest and largest democratic political parties in the world [1] [2]. It was formed in 1885 during the British rule under the leadership of Alan Octavian Hume, Dadabhai Naoroji and Dinshaw Edulji Vacha by representatives from around fifty different countries. Central to the Indian freedom struggle in the late 19th and mid-20th centuries, the Congress led the struggle against the then British colonial rule in India with 1.5 crore active members and 7 crore fighters.\n\n After Independence in 1947, Congress became the undisputed political force in India. Out of the 15 Lok Sabha elections held since independence, the Congress came to power six times with a clear majority and four times came to power with a front system. From Jawaharlal Nehru to Manmohan Singh, seven Congress Prime Ministers have ruled the country`
-        res.status(200).json({ history: "sanjay" });
+        res.status(200).json({ history: para });
 });
 app.get('/api/video-page', async (req, res) => {
     try {

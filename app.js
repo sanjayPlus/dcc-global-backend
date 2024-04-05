@@ -6,6 +6,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
+const baseUrl = require('./baseUrl.js')
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log('Connected to MongoDB');
 })
@@ -87,21 +88,17 @@ app.get('/api/admin/get-backend-url/:district', async (req, res) => {
         if (!admin) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
-        if (district === "Thrissur") { // corrected comparison
-            const tokenRes = await axios.get('https://dcctcr-backend.plusitpark.com/api/admin/login-from-dcc', {
-                headers: {
-                    'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
-                }
-            })
-            return res.status(200).json({ token: tokenRes.data, district: "Thrissur" ,url:`https://dcctcr-backend.plusitpark.com`});
-        }else if (district === "Ernakulam") { // corrected comparison
-            const tokenRes = await axios.get('https://dccekm-backend.plusitpark.com/api/admin/login-from-dcc', {
-                headers: {
-                    'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
-                }
-            })
-            return res.status(200).json({ token: tokenRes.data, district: "Ernakulam" ,url:`https://dccekm-backend.plusitpark.com`});
-        }
+        baseUrl.forEach(async (item) => {
+            if (district === item.district) { // corrected comparison
+                const tokenRes = await axios.get(item.url+'/api/admin/login-from-dcc', {
+                    headers: {
+                        'x-access-token': jwt.sign({ id: admin._id }, process.env.VOLUNTEER_SERVER_SECRET, { expiresIn: '365d' })
+                    }
+                })
+                return res.status(200).json({ token: tokenRes.data, district: item.district ,url: item.url});
+            }
+        })
+      
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: 'Internal server error' });
@@ -133,7 +130,8 @@ app.get('/api/sound-page', async (req, res) => {
             console.log(error)
                 res.status(500).json({ message: 'Internal server error' });
     }
-})
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

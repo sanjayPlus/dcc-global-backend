@@ -14,7 +14,7 @@ const baseUrl = [{
     url:'https://dccmlp-backend.plusitpark.com',
     district:'Malappuram'
 },{
-    url:'https://dcckoz-backend.dmckpcc.in',
+    url:'https://dcckoz-backend.plusitpark.com',
     district:'Kozhikode'
 },{
     url:'https://dccway-backend.plusitpark.com',
